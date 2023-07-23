@@ -37,17 +37,17 @@ for i in range(1,Nstates-1):
     lev_stat+=[min(r,1/r)]
     s0=s
 
-#Superposition with "state right"
-ind=0
-stR_prob=[abs(v[ind,i])**2 for i in range(Nstates)]
+#Superposition with defined states
+sup_st_dic={}
+for i in range(4):
+    ind=dic[int(str(i)*L)]
+    sup_st_dic[str(i)]=[abs(v[ind,i])**2 for i in range(Nstates)]
+ind=dic[int('45'*(L//2))]
+sup_st_dic['45']=[abs(v[ind,i])**2 for i in range(Nstates)]
 
-#Superposition with "state left"
-ind=dic[int('1'*L)]
-stL_prob=[abs(v[ind,i])**2 for i in range(Nstates)]
 
 with open('L{}_m{:.2f}.pkl'.format(L,m), 'wb') as file:
     pickle.dump(w, file)
     pickle.dump(sh, file)
     pickle.dump(lev_stat, file)
-    pickle.dump(stR_prob, file)
-    pickle.dump(stL_prob, file)
+    pickle.dump(sup_st_dic,file)
